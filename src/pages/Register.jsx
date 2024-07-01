@@ -6,11 +6,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputWrapper from "../components/InputWrapper";
 import Label from "../components/Label";
 import { schema } from "./../schema";
+import { useSelector } from "react-redux";
+import { useRegisterUserMutation } from "./../store/auth/userApiSlice";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  // const { handleRegistration, loading, token } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(false);
+  const { token } = useSelector((state) => state.auth);
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+
   const {
     register,
     handleSubmit,
@@ -24,7 +27,7 @@ const Register = () => {
     if (token) {
       navigate("/home");
     }
-  }, []);
+  }, [navigate, token]);
 
   const password = watch("password");
 
@@ -67,11 +70,15 @@ const Register = () => {
     });
   }, [password]);
 
-  const onSubmit = async () => {
-    setLoading(false);
-    setToken(false);
-    // const { full_name, email, password, passwordConfirmation } = data;
-    // handleRegistration({ full_name, email, password, passwordConfirmation });
+  const onSubmit = async (data) => {
+    try {
+      const res = await registerUser(data).unwrap();
+      console.log(res);
+      //  navigate("/login");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message || error.error);
+    }
   };
 
   return (
@@ -190,14 +197,14 @@ const Register = () => {
             </div>
           </InputWrapper>
           <button
-            disabled={buttonDisable || loading}
+            disabled={buttonDisable || isLoading}
             className={
-              buttonDisable || loading
+              buttonDisable || isLoading
                 ? "w-full p-3 rounded-md text-grayTwo bg-slate-200 cursor-not-allowed"
                 : "w-full p-3 rounded-md text-white bg-primary"
             }
           >
-            {loading ? "Creating Account..." : "Create Account"}
+            {isLoading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
         <p className="text-grayTwo">

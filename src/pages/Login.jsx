@@ -5,12 +5,20 @@ import InputWrapper from "../components/InputWrapper";
 import Label from "../components/Label";
 import { loginSchema } from "../schema";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { setCredentials } from "../store/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "./../store/auth/userApiSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+  const { token } = useSelector((state) => state.auth);
+
+  console.log(token);
 
   const {
     register,
@@ -18,14 +26,19 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
 
-  // useEffect(() => {
-  //   if (token) {
-  //     navigate("/home");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (token) {
+      navigate("/home");
+    }
+  }, [navigate, token]);
 
-  const onSubmit = async () => {
-    setLoading(true);
+  const onSubmit = async (data) => {
+    try {
+      const res = await login(data).unwrap();
+      dispatch(setCredentials(res.data.token));
+    } catch (error) {
+      toast.error(error?.data?.message);
+    }
   };
 
   return (
@@ -57,6 +70,7 @@ const Login = () => {
             <input
               {...register("email")}
               type="email"
+              disabled={isLoading}
               placeholder="Enter email address"
               className={`px-2 py-2 border rounded-md border-slate-400"
               placeholder="Enter email address${
@@ -73,6 +87,7 @@ const Login = () => {
             <input
               {...register("password")}
               type="password"
+              disabled={isLoading}
               className={`px-2 py-2 border rounded-md border-slate-400 ${
                 errors.password ? " border-red-400" : " border-slate-400"
               }`}
@@ -93,14 +108,14 @@ const Login = () => {
           </InputWrapper>
 
           <button
-            disabled={loading}
+            disabled={isLoading}
             className={
-              loading
+              isLoading
                 ? "w-full p-3 rounded-md text-grayTwo bg-slate-200 cursor-not-allowed"
                 : "w-full p-3 rounded-md text-white bg-primary"
             }
           >
-            {loading ? "Loading" : "Login"}
+            {isLoading ? "Loading" : "Login"}
           </button>
         </form>
         <p className="text-grayTwo">
