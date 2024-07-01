@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWrapper from "../../components/InputWrapper";
-import Label from "../../components/Label";
-import { loginSchema } from "../../schema";
+import InputWrapper from "../components/InputWrapper";
+import Label from "../components/Label";
+import { loginSchema } from "../schema";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useAuth } from "../../provider/AuthProvider";
+import { useEffect, useState } from "react";
 
 const Login = () => {
-  const { handleLogin, loading, token } = useAuth();
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -18,15 +18,14 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
 
-  useEffect(() => {
-    if (token) {
-      navigate("/home");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (token) {
+  //     navigate("/home");
+  //   }
+  // }, []);
 
-  const onSubmit = async (data) => {
-    const { email, password } = data;
-    await handleLogin({ email, password });
+  const onSubmit = async () => {
+    setLoading(true);
   };
 
   return (

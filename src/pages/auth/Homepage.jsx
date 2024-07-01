@@ -1,13 +1,10 @@
-import React from "react";
-import { useAuth } from "../../provider/AuthProvider";
-import AuthWrapper from "../../components/AuthWrapper";
+import AuthWrapper from "./../../components/AuthWrapper";
 import { Link } from "react-router-dom";
-import PostCard from "../../components/PostCard";
+import PostCard from "./../../components/PostCard";
 import PostHeader from "../../components/PostHeader";
 import PostFilter from "../../components/PostFilter";
 
 const Homepage = () => {
-  const { profile } = useAuth();
   return (
     <AuthWrapper>
       <PostHeader />

@@ -11,6 +11,12 @@ import {
 import IndexPage from "./pages/IndexPage";
 import { Login, Register } from "./pages";
 import PrivateRoute from "./components/PrivateRoute";
+import Homepage from "./pages/auth/Homepage";
+import {
+  CreatePostPage,
+  PreviewPostPage,
+  ShowPostPage,
+} from "./pages/auth/posts";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

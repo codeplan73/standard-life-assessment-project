@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWrapper from "../../components/InputWrapper";
-import Label from "../../components/Label";
-import { schema } from "../../schema";
-import { useAuth } from "../../provider/AuthProvider";
+import InputWrapper from "../components/InputWrapper";
+import Label from "../components/Label";
+import { schema } from "./../schema";
 
 const Register = () => {
-  const { handleRegistration, loading, token } = useAuth();
+  // const { handleRegistration, loading, token } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,14 +28,6 @@ const Register = () => {
 
   const password = watch("password");
 
-  const passwordCriteria = {
-    minLength: password?.length >= 8,
-    uppercase: /[A-Z]/.test(password),
-    lowercase: /[a-z]/.test(password),
-    number: /[0-9]/.test(password),
-    specialChar: /[!@#$%^&*]/.test(password),
-  };
-
   useEffect(() => {
     const inputFields = document.querySelectorAll("input");
 
@@ -44,6 +37,14 @@ const Register = () => {
   }, []);
 
   useEffect(() => {
+    const passwordCriteria = {
+      minLength: password?.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      lowercase: /[a-z]/.test(password),
+      number: /[0-9]/.test(password),
+      specialChar: /[!@#$%^&*]/.test(password),
+    };
+
     const criteriaCheckboxes = document.querySelectorAll("input[type='radio']");
     criteriaCheckboxes.forEach((checkbox, index) => {
       switch (index) {
@@ -64,11 +65,13 @@ const Register = () => {
           break;
       }
     });
-  }, [password, passwordCriteria]);
+  }, [password]);
 
-  const onSubmit = async (data) => {
-    const { full_name, email, password, passwordConfirmation } = data;
-    handleRegistration({ full_name, email, password, passwordConfirmation });
+  const onSubmit = async () => {
+    setLoading(false);
+    setToken(false);
+    // const { full_name, email, password, passwordConfirmation } = data;
+    // handleRegistration({ full_name, email, password, passwordConfirmation });
   };
 
   return (
