@@ -74,10 +74,10 @@ const Register = () => {
     try {
       const res = await registerUser(data).unwrap();
       console.log(res);
-      //  navigate("/login");
+      navigate("/login");
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message || error.error);
+      toast.error(error?.data?.message?.errors.email[0] || error.error);
     }
   };
 
