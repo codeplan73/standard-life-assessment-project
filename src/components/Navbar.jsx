@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { CiMenuBurger } from "react-icons/ci";
@@ -8,6 +9,11 @@ import { logout } from "../store/auth/authSlice";
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleOpenMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <nav className="container flex items-center justify-between px-4 py-8 mx-auto md:max-w-7xl">
@@ -18,15 +24,29 @@ const Navbar = () => {
             <span>
               <IoNotificationsOutline className="text-2xl" />
             </span>
-            <span>
-              <FaRegCircleUser className="text-4xl" />
-            </span>
-            <button
-              onClick={() => dispatch(logout())}
-              className="text-lg font-semibold text-primary"
-            >
-              Logout
-            </button>
+            <div className="relative">
+              <span>
+                <FaRegCircleUser
+                  onClick={handleOpenMenu}
+                  className="text-4xl cursor-pointer hover:text-primary"
+                />
+              </span>
+              {isOpen && (
+                <div className="absolute right-0 z-50 py-2 mt-2 bg-white rounded-md shadow-lg w-36 drop-shadow-lg">
+                  <p className="block px-4 py-2 text-gray-800">
+                    Emmanuel John (Todo)
+                  </p>
+                  <button
+                    onClick={() => {
+                      dispatch(logout());
+                    }}
+                    className="block px-4 py-2 text-gray-800"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </>
         ) : (
           <>

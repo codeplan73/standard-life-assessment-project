@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { Footer, Navbar } from "../components/index";
 
 const AuthWrapper = ({ children }) => {
@@ -9,6 +9,10 @@ const AuthWrapper = ({ children }) => {
       <Footer />
     </>
   );
+};
+
+AuthWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthWrapper;

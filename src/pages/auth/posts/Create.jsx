@@ -9,8 +9,20 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createPostSchema } from "../../../schema";
 import ErrorMessage from "../../../components/ErrorMessage";
+// import { useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+// import {
+//   useCreatePostMutation,
+//   useCreateAndPublishPostMutation,
+// } from "../../../store/posts/postApiSlice";
 
 const CreatePostPage = () => {
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
+  // const [createPost] = useCreatePostMutation();
+  // const [createAndPublishPost] = useCreatePostMutation();
+
   const {
     register,
     control,
@@ -20,7 +32,7 @@ const CreatePostPage = () => {
   } = useForm({ resolver: yupResolver(createPostSchema) });
 
   const [isFormEdited, setIsFormEdited] = useState(false);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
 
   const formValues = watch();
 
@@ -37,40 +49,33 @@ const CreatePostPage = () => {
       console.log("No file selected.");
       return;
     }
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "codeplan73");
+    setImage(file);
+  };
 
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/ddogq4ll7/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-
-      setImage(data.url);
-    } catch (error) {
-      console.log("Error uploading image: ", error);
+  const onSubmit = async (data, event) => {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("content", data.content);
+    if (image) {
+      formData.append("img_url", image);
     }
-  };
 
-  const createPost = async (data) => {
-    console.log("Draft Post: ", data);
-  };
-
-  const createAndPublishPost = async (data) => {
-    console.log("Publish Post: ", data);
-  };
-
-  const onSubmit = (data, event) => {
     const { id } = event.target;
     if (id === "createAndPublish") {
-      createAndPublishPost(data);
+      try {
+        // const res = await createAndPublishPost(formData);
+        console.log("res");
+      } catch (error) {
+        console.log("Cool", error.error.data.message);
+      }
     } else {
-      createPost(data);
+      try {
+        // const res = await createPost(formData);
+        console.log("res");
+      } catch (error) {
+        console.log("Cool", error.error.data.message);
+      }
     }
   };
 
@@ -110,32 +115,34 @@ const CreatePostPage = () => {
             <div className="flex flex-col gap-2 py-4">
               {image ? (
                 <img
-                  src={image && image}
+                  src={URL.createObjectURL(image)}
                   alt="Preview"
                   className="object-cover w-full h-64"
                 />
               ) : (
-                <div className="flex items-center justify-center w-full">
-                  <input
-                    type="file"
-                    {...register("img_url")}
-                    accept="image/png, image/jpeg, image/jpg"
-                    onChange={handleImageChange}
-                    id="fileInput"
-                    className="hidden"
-                  />
+                <div>
+                  <div className="flex items-center justify-center w-full">
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg"
+                      onChange={handleImageChange}
+                      id="fileInput"
+                      className="hidden"
+                    />
+
+                    <label
+                      htmlFor="fileInput"
+                      className="flex items-center justify-center w-full p-4 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-form md:h-44 hover:bg-gray-100 focus-within:border-blue-500"
+                    >
+                      <div className="flex flex-col items-center justify-center">
+                        <CiImageOn className="w-12 h-12 text-gray-400" />
+                        <span className="mt-2 text-sm text-gray-600">
+                          Add Header Image
+                        </span>
+                      </div>
+                    </label>
+                  </div>
                   <ErrorMessage>{errors.img_url?.message}</ErrorMessage>
-                  <label
-                    htmlFor="fileInput"
-                    className="flex items-center justify-center w-full p-4 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-form md:h-44 hover:bg-gray-100 focus-within:border-blue-500"
-                  >
-                    <div className="flex flex-col items-center justify-center">
-                      <CiImageOn className="w-12 h-12 text-gray-400" />
-                      <span className="mt-2 text-sm text-gray-600">
-                        Add Header Image
-                      </span>
-                    </div>
-                  </label>
                 </div>
               )}
               <input

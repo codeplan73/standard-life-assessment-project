@@ -18,8 +18,6 @@ const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const { token } = useSelector((state) => state.auth);
 
-  console.log(token);
-
   const {
     register,
     handleSubmit,
@@ -37,6 +35,8 @@ const Login = () => {
       const res = await login(data).unwrap();
       dispatch(setCredentials(res.data.token));
     } catch (error) {
+      console.log("Error: ", error);
+
       toast.error(error?.data?.message);
     }
   };
