@@ -1,13 +1,12 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const PostHeader = () => {
   const menu = [
     { link: "/", title: "Home" },
-    { link: "/post", title: "Post" },
-    { link: "/subscribers", title: "Subscribers" },
-    { link: "/statistics", title: "Statistics" },
-    { link: "/settings", title: "Settings" },
+    { link: "/home", title: "Post" },
+    { link: "/posts/preview", title: "Preview" },
+    { link: "/posts/publish", title: "Publish" },
+    { link: "#", title: "Settings" },
   ];
   return (
     <header className="flex flex-col items-center justify-center gap-2">

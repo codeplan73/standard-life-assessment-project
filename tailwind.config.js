@@ -8,7 +8,7 @@ export default {
         primary: "#093D9F",
         secondary: "#3B099F",
         disabled: "#AAB4BE",
-        // disabled: "#093D9F/#FFFFFF",
+        disabledTwo: "#E9EFF3",
         black: "#111827",
         grayOne: "#4b54463",
         grayTwo: "#6B7280",

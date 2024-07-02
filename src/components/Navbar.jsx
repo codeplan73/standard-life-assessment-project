@@ -9,7 +9,7 @@ import { logout } from "../store/auth/authSlice";
 const Navbar = () => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenMenu = () => {
     setIsOpen(!isOpen);

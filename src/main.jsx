@@ -19,6 +19,7 @@ import {
   CreatePostPage,
   PreviewPostPage,
   ShowPostPage,
+  PublishPostPage,
 } from "./pages/auth/posts";
 
 const router = createBrowserRouter(
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
         <Route path="/posts/create" element={<CreatePostPage />} />
         <Route path="/posts/preview" element={<PreviewPostPage />} />
         <Route path="/posts/show" element={<ShowPostPage />} />
+        <Route path="/posts/publish" element={<PublishPostPage />} />
       </Route>
     </Route>
   )
