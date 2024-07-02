@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import { CiImageOn } from "react-icons/ci";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import { CiImageOn } from "react-icons/ci";
 import AuthWrapper from "../../../components/AuthWrapper";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,25 +11,17 @@ import { createPostSchema } from "../../../schema";
 import ErrorMessage from "../../../components/ErrorMessage";
 
 const CreatePostPage = () => {
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  // const upload_preset = import.meta.env.VITE_CLOUDINARY_PRESET;
+
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm({ resolver: yupResolver(createPostSchema) });
-
-  const [isFormEdited, setIsFormEdited] = useState(false);
-  const [image, setImage] = useState("");
-
-  const formValues = watch();
-
-  useEffect(() => {
-    const hasValue = Object.values(formValues).some(
-      (value) => value && value.length > 0
-    );
-    setIsFormEdited(hasValue);
-  }, [formValues]);
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
@@ -37,6 +29,8 @@ const CreatePostPage = () => {
       console.log("No file selected.");
       return;
     }
+    // setProfileImage(file);
+    // setImagePreview(URL.createObjectURL(file));
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -53,30 +47,18 @@ const CreatePostPage = () => {
 
       setImage(data.url);
     } catch (error) {
-      console.log("Error uploading image: ", error);
+      setLoading(false);
     }
   };
 
   const createPost = async (data) => {
-    console.log("Draft Post: ", data);
-  };
+    data.img_url = image;
 
-  const createAndPublishPost = async (data) => {
-    console.log("Publish Post: ", data);
+    console.log(data);
   };
-
-  const onSubmit = (data, event) => {
-    const { id } = event.target;
-    if (id === "createAndPublish") {
-      createAndPublishPost(data);
-    } else {
-      createPost(data);
-    }
-  };
-
   return (
     <AuthWrapper>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={handleSubmit(createPost)}>
         <div className="flex items-center justify-between">
           <Link to="/home" className="flex items-center space-x-2">
             <IoArrowBack className="text-slate-500" />
@@ -85,20 +67,13 @@ const CreatePostPage = () => {
           <div className="flex items-center space-x-4">
             <button
               id="create"
-              type="button"
-              onClick={handleSubmit(onSubmit)}
               className="px-4 py-2 rounded-md text-primary bg-slate-200"
             >
               Preview
             </button>
             <button
               id="createAndPublish"
-              type="button"
-              disabled={!isFormEdited}
-              onClick={handleSubmit(onSubmit)}
-              className={`px-4 py-2 text-white rounded-md  ${
-                isFormEdited ? "bg-primary" : "bg-blue-400"
-              }`}
+              className="px-4 py-2 text-white rounded-md bg-primary"
             >
               Publish
             </button>
@@ -107,37 +82,38 @@ const CreatePostPage = () => {
 
         <div className="w-full mx-auto md:w-8/12">
           <div className="flex flex-col py-12">
-            <div className="flex flex-col gap-2 py-4">
-              {image ? (
-                <img
-                  src={image && image}
-                  alt="Preview"
-                  className="object-cover w-full h-64"
+            {image ? (
+              <img
+                src={image && image}
+                alt="Preview"
+                className="object-cover w-full h-64"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full">
+                <input
+                  type="file"
+                  {...register("img_url")}
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={handleImageChange}
+                  id="fileInput"
+                  className="hidden"
                 />
-              ) : (
-                <div className="flex items-center justify-center w-full">
-                  <input
-                    type="file"
-                    {...register("img_url")}
-                    accept="image/png, image/jpeg, image/jpg"
-                    onChange={handleImageChange}
-                    id="fileInput"
-                    className="hidden"
-                  />
-                  <ErrorMessage>{errors.img_url?.message}</ErrorMessage>
-                  <label
-                    htmlFor="fileInput"
-                    className="flex items-center justify-center w-full p-4 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-form md:h-44 hover:bg-gray-100 focus-within:border-blue-500"
-                  >
-                    <div className="flex flex-col items-center justify-center">
-                      <CiImageOn className="w-12 h-12 text-gray-400" />
-                      <span className="mt-2 text-sm text-gray-600">
-                        Add Header Image
-                      </span>
-                    </div>
-                  </label>
-                </div>
-              )}
+                <ErrorMessage>{errors.img_url?.message}</ErrorMessage>
+                <label
+                  htmlFor="fileInput"
+                  className="flex items-center justify-center w-full p-4 border-2 border-gray-300 border-dashed rounded-md cursor-pointer bg-form md:h-44 hover:bg-gray-100 focus-within:border-blue-500"
+                >
+                  <div className="flex flex-col items-center justify-center">
+                    <CiImageOn className="w-12 h-12 text-gray-400" />
+                    <span className="mt-2 text-sm text-gray-600">
+                      Add Header Image
+                    </span>
+                  </div>
+                </label>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2 py-4">
               <input
                 type="text"
                 {...register("title")}
@@ -161,6 +137,13 @@ const CreatePostPage = () => {
                 )}
               />
               <ErrorMessage>{errors.content?.message}</ErrorMessage>
+
+              {/* <button
+                type="submit"
+                className="w-full py-4 text-white rounded-md bg-primary"
+              >
+                Submit
+              </button> */}
             </div>
           </div>
         </div>

@@ -30,3 +30,10 @@ export const loginSchema = yup.object({
     .required("Email is required"),
   password: yup.string().required("Password is required"),
 });
+
+export const createPostSchema = yup.object({
+  title: yup.string().required("Title is required").min(3),
+  description: yup.string().required("Description is required").min(10),
+  // img_url: yup.string().required("Image is required"),
+  content: yup.string().required("Content is required"),
+});
