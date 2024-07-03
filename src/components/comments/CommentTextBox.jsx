@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CommentTextBox = ({ totalComment }) => {
   return (
-    <div className="flex flex-col items-start gap-4 mb-4 justify-starts">
+    <div className="flex flex-col items-start gap-4 mb-4 justify-starts font-inter">
       <h2 className="mt-8 text-2xl font-semibold">{totalComment} Comments</h2>
       <div className="flex items-center space-x-2">
         <LuUserCircle2 className="text-4xl" />

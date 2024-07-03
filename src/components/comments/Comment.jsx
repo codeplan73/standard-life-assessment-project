@@ -17,7 +17,7 @@ const Comment = ({ name, date, text }) => {
         </div>
       </div>
 
-      <div className="flex flex-col w-full gap-3 md:w-9/12 ">
+      <div className="flex flex-col w-full gap-3 md:w-9/12 font-inter ">
         <p className="text-sm">{text}</p>
         <div className="flex items-start justify-between">
           <div className="flex items-center justify-start gap-4">

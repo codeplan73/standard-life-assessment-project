@@ -2,7 +2,7 @@ import articleImage from "../../assets/img/article-image.png";
 
 const Article = () => {
   return (
-    <article className="flex flex-col gap-4 py-8">
+    <article className="flex flex-col gap-4 py-8 font-inter">
       <img className="w-full md:h-72" src={articleImage} alt="post" />
       <p className="text-md">
         If {`you're`} like me then you just got into the UI/UX design space, or

@@ -4,11 +4,12 @@ import ArticleLikeOption from "../../../components/post/ArticleLikeOption";
 import AuthWrapper from "../../../components/AuthWrapper";
 import CommetTextBox from "../../../components/comments/CommentTextBox";
 import Comment from "../../../components/comments/Comment";
+import Explore from "../../../components/Explore";
 
 const PreviewPostPage = () => {
   return (
     <AuthWrapper>
-      <div className="container w-full px-4 mx-auto md:w-8/12">
+      <div className="container flex flex-col w-full px-4 mx-auto md:w-8/12">
         <ArticleHeader />
         <Article />
         <ArticleLikeOption />
@@ -28,6 +29,8 @@ const PreviewPostPage = () => {
           industry, it offers insight to basic expose in a very soft way, Thank
           you"
         />
+
+        <Explore />
       </div>
     </AuthWrapper>
   );
