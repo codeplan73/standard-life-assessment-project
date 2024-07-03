@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CommentTextBox = ({ totalComment }) => {
   return (
-    <div className="flex flex-col items-start gap-4 justify-starts">
+    <div className="flex flex-col items-start gap-4 mb-4 justify-starts">
       <h2 className="mt-8 text-2xl font-semibold">{totalComment} Comments</h2>
       <div className="flex items-center space-x-2">
         <LuUserCircle2 className="text-4xl" />
@@ -13,9 +13,6 @@ const CommentTextBox = ({ totalComment }) => {
         placeholder="write a comment..."
         className="w-full p-3 border rounded-md md:w-6/12 md:h-24 border-slate-300"
       ></textarea>
-      <div>
-        <div className="flex flex-col items-start "></div>
-      </div>
     </div>
   );
 };

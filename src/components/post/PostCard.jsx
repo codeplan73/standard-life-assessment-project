@@ -1,6 +1,6 @@
 import { TiArrowForwardOutline } from "react-icons/ti";
 import { BsDot } from "react-icons/bs";
-import logoImg from "../assets/img/logo.webp";
+import logoImg from "../../assets/img/logo.webp";
 import { Link } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 

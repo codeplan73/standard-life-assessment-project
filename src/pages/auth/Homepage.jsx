@@ -1,8 +1,8 @@
 import AuthWrapper from "./../../components/AuthWrapper";
 import { Link } from "react-router-dom";
-import PostCard from "./../../components/PostCard";
-import PostHeader from "../../components/PostHeader";
-import PostFilter from "../../components/PostFilter";
+import PostCard from "./../../components/post/PostCard";
+import PostHeader from "../../components/post/PostHeader";
+import PostFilter from "../../components/post/PostFilter";
 
 const Homepage = () => {
   return (

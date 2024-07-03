@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWrapper from "../components/InputWrapper";
-import Label from "../components/Label";
+import InputWrapper from "../components/form/InputWrapper";
+import Label from "../components/form/Label";
 import { loginSchema } from "../schema";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";

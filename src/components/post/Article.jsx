@@ -1,4 +1,4 @@
-import articleImage from "../assets/img/article-image.png";
+import articleImage from "../../assets/img/article-image.png";
 
 const Article = () => {
   return (
