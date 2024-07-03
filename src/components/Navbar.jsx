@@ -106,6 +106,18 @@ const Navbar = () => {
             </Link>
           </li>
         ))}
+        {token && (
+          <button
+            onClick={() => {
+              dispatch(logout());
+              // Optionally, close the menu or perform other actions upon logout
+              setOpenMenu(false);
+            }}
+            className="block px-4 text-gray-800"
+          >
+            Logout
+          </button>
+        )}
       </ul>
     </nav>
   );
