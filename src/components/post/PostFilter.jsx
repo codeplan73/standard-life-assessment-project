@@ -5,7 +5,7 @@ const PostFilter = () => {
   return (
     <div className="flex flex-col-reverse items-start gap-4 pt-8 md:items-center md:justify-between md:flex-row">
       <div className="flex items-center justify-start gap-4">
-        <p className="text-slate-500 text-md">Published (4)</p>
+        <p className="font-semibold text-primary text-md">Published (4)</p>
         <p className="text-slate-500 text-md">Draft</p>
         <p className="text-slate-500 text-md">Scheduled</p>
       </div>

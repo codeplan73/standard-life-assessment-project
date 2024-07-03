@@ -3,9 +3,8 @@ import ArticleHeader from "../../../components/post/ArticleHeader";
 import ArticleLikeOption from "../../../components/post/ArticleLikeOption";
 import AuthWrapper from "../../../components/AuthWrapper";
 import CommetTextBox from "../../../components/comments/CommentTextBox";
-import Comment from "../../../components/comments/Comment";
-// import Explore from "../../../components/Explore";
-import ExploreWithAuthor from "../../../components/ExploreWithAuthor";
+// import Comment from "../../../components/comments/Comment";
+import ExploreWithNoAuthor from "../../../components/ExploreWithNoAuthor";
 
 const PreviewPostPage = () => {
   return (
@@ -15,8 +14,8 @@ const PreviewPostPage = () => {
         <Article />
         <ArticleLikeOption />
 
-        <CommetTextBox totalComment="2" />
-        <Comment
+        <CommetTextBox totalComment="" />
+        {/* <Comment
           name="Bisola Bisola"
           date="2 weeks ago"
           text="This was a very insightful post. As someone who is new to the design
@@ -29,11 +28,9 @@ const PreviewPostPage = () => {
           text="This was a very insightful post. As someone who is new to the design
           industry, it offers insight to basic expose in a very soft way, Thank
           you"
-        />
-
-        {/* <Explore /> */}
+        /> */}
       </div>
-      <ExploreWithAuthor />
+      <ExploreWithNoAuthor />
     </AuthWrapper>
   );
 };

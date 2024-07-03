@@ -32,15 +32,27 @@ const Navbar = () => {
                 />
               </span>
               {isOpen && (
-                <div className="absolute right-0 z-50 py-2 mt-2 bg-white rounded-md shadow-lg w-36 drop-shadow-lg">
-                  <p className="block px-4 py-2 text-gray-800">
-                    Emmanuel John (Todo)
-                  </p>
+                <div className="absolute right-0 z-50 flex flex-col items-start gap-1 py-2 mt-2 bg-white rounded-md shadow-lg w-36 drop-shadow-lg">
+                  <Link to="/home" className="block px-4 text-gray-800">
+                    Post
+                  </Link>
+                  <Link
+                    to="/posts/preview"
+                    className="block px-4 text-gray-800"
+                  >
+                    Draft
+                  </Link>
+                  <Link
+                    to="/posts/publish"
+                    className="block px-4 text-gray-800"
+                  >
+                    Publish
+                  </Link>
                   <button
                     onClick={() => {
                       dispatch(logout());
                     }}
-                    className="block px-4 py-2 text-gray-800"
+                    className="block px-4 text-gray-800"
                   >
                     Logout
                   </button>

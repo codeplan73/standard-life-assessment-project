@@ -4,7 +4,7 @@ const PostHeader = () => {
   const menu = [
     { link: "/", title: "Home" },
     { link: "/home", title: "Post" },
-    { link: "/posts/preview", title: "Preview" },
+    { link: "/posts/preview", title: "Draft" },
     { link: "/posts/publish", title: "Publish" },
     { link: "#", title: "Settings" },
   ];
