@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 const SectionWrapper = ({ children }) => {
-  return <div className="container mx-auto">{children}</div>;
+  return <div className="container px-4 mx-auto">{children}</div>;
 };
 
 SectionWrapper.propTypes = {
