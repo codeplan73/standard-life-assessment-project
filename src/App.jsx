@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <div className="container p-4 mx-auto main">
+      <div className="mx-auto main">
         <Outlet />
       </div>
     </>

@@ -3,7 +3,7 @@ import { LuDot } from "react-icons/lu";
 
 const ExploreCard = ({ cardImage, title, text, date, minRead }) => {
   return (
-    <div className="flex flex-col items-start max-w-xs gap-1">
+    <div className="flex flex-col items-start max-w-sm gap-1 md:w-full">
       <img
         src={cardImage}
         alt="explore-card-image"

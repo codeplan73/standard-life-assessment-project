@@ -4,7 +4,8 @@ import ArticleLikeOption from "../../../components/post/ArticleLikeOption";
 import AuthWrapper from "../../../components/AuthWrapper";
 import CommetTextBox from "../../../components/comments/CommentTextBox";
 import Comment from "../../../components/comments/Comment";
-import Explore from "../../../components/Explore";
+// import Explore from "../../../components/Explore";
+import ExploreWithAuthor from "../../../components/ExploreWithAuthor";
 
 const PreviewPostPage = () => {
   return (
@@ -30,8 +31,9 @@ const PreviewPostPage = () => {
           you"
         />
 
-        <Explore />
+        {/* <Explore /> */}
       </div>
+      <ExploreWithAuthor />
     </AuthWrapper>
   );
 };
